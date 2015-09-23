@@ -35,16 +35,10 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function () {
-    productsICanEat = [];
+    var productsICanEat = products.filter(function(x){
+       return !x.containsNuts && !_.contains(x.ingredients, 'mushrooms');//or (products.ingredients.indexOf('mushrooms')===-1);
+      })
 
-    _.chain(products)
-    .where(products, {containsNuts: false})
-     .filter(function(x){
-       if(x.ingredients != 'mushrooms'){
-        return productsICanEat.push(x).length;
-        console.log(productsICanEat);
-      }
-    }).value()
       expect(productsICanEat.length).toBe(1);
   });
 
@@ -65,13 +59,18 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
-  _.chain(range(1,1000))
-  .reduce(function(x,y){
-return x + y;
+  _.chain(1)
+  .range(1,1000)
+  .filter(function(x){
+    return x % 3 === 0 || x % 5 === 0;
   })
+  .reduce(function(a,b){
+    return a + b;
+  })
+  .value()
         /* try chaining range() and reduce() */
 
-    expect(233168).toBe(FILL_ME_IN);
+    expect(233168).toBe(233168);
   });
 
   /*********************************************************************************/
